@@ -11,39 +11,39 @@ class PlacesListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Your Places'),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(AddPlaceScreen.routeName);
-            },
-            icon: Icon(Icons.add),
-          ),
-        ],
-      ),
-      body: Consumer<GreatPlaces>(
-        // child: Center(
-        //   child: const Text('No places added yet. Start adding now!'),
-        // ),
-        builder: (ctx, greatPlaces, childText) => greatPlaces.items.length <= 0
-            ? const Text('No places added yet. Start adding now!')
-            : ListView.builder(
-                itemCount: greatPlaces.items.length,
-                itemBuilder: (ctx, index) => ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: FileImage(greatPlaces.items[index].image),
-                  ),
-                  title: Text(greatPlaces.items[index].title),
-                  subtitle: Text(greatPlaces.items[index].location.address),
-                  onTap: () {
-                    // The arguments here is how we pass data to the detail screen and how we also fulfill the 'id' variable in place_detail_screen which takes from ModalRoute...settings.arguments
-                    Navigator.of(context).pushNamed(PlaceDetailScreen.routeName,
-                        arguments: greatPlaces.items[index].id);
-                  },
+        appBar: AppBar(
+          title: Text('Your Places'),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(AddPlaceScreen.routeName);
+              },
+              icon: Icon(Icons.add),
+            ),
+          ],
+        ),
+        body: Center(
+          child: Consumer<GreatPlaces>(
+            builder: (ctx, greatPlaces, childText) => greatPlaces.items.isEmpty
+                ? const Text('No places added yet. Start adding now!')
+                : Center(child: ListView.builder(
+              itemCount: greatPlaces.items.length,
+              itemBuilder: (ctx, index) => ListTile(
+                leading: CircleAvatar(
+                  backgroundImage:
+                  FileImage(greatPlaces.items[index].image),
                 ),
+                title: Align(alignment: Alignment.centerLeft, child: Text(greatPlaces.items[index].title,),),
+                subtitle: Text(greatPlaces.items[index].location.address),
+                onTap: () {
+                  // The arguments here is how we pass data to the detail screen and how we also fulfill the 'id' variable in place_detail_screen which takes from ModalRoute...settings.arguments
+                  Navigator.of(context).pushNamed(
+                      PlaceDetailScreen.routeName,
+                      arguments: greatPlaces.items[index].id);
+                },
               ),
-      ),
-    );
+            ),),
+          ),
+        ));
   }
 }
