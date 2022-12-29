@@ -14,6 +14,7 @@ class _LocationInput extends State<LocationInput>{
         height: 150,
         width: double.infinity,
         alignment: Alignment.center,
+        decoration: BoxDecoration(color: Colors.greenAccent, border: Border.all(width: 1, color: Colors.grey)),
         child: _previewImageUrl == null ? Text('No location Choosen', textAlign: TextAlign.center,) : Image.network(_previewImageUrl!, fit: BoxFit.cover, width: double.infinity,),
       ),
       Row(children: <Widget>[
